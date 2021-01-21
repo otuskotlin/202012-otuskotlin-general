@@ -1,6 +1,7 @@
 package ru.otus.otuskotlin.general.dsl
 
 import ru.otus.otuskotlin.general.models.UserModel
+import ru.otus.otuskotlin.general.models.UserPermissionsModel
 import java.time.LocalDate
 import kotlin.test.Test
 import kotlin.test.assertEquals
