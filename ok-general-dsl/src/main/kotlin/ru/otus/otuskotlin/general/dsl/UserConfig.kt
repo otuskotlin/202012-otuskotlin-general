@@ -3,6 +3,7 @@ package ru.otus.otuskotlin.general.dsl
 import ru.otus.otuskotlin.general.models.*
 import java.time.LocalDate
 
+@UserDSL
 class UserConfig {
     private var id: UserId = UserId.NONE
     private var name_f: String = ""

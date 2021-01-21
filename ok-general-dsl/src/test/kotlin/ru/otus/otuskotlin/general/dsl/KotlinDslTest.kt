@@ -45,4 +45,14 @@ internal class KotlinDslTest {
             ))
         }
     }
+
+    @Test
+    fun scopteTest() {
+        val user = user {
+//            name {
+//                name {  }
+//            }
+        }
+    }
+
 }

@@ -2,6 +2,7 @@ package ru.otus.otuskotlin.general.dsl
 
 import ru.otus.otuskotlin.general.models.UserPermissionsModel
 
+@UserDSL
 class UserPermissionsConf {
     private val _permissions: MutableSet<UserPermissionsModel> = mutableSetOf()
     val permissions: Set<UserPermissionsModel>
