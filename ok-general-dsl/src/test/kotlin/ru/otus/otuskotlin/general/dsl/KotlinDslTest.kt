@@ -25,7 +25,7 @@ internal class KotlinDslTest {
             }
 
             permissions {
-                add("VIEW")
+                add("READ")
                 add(UserPermissionsModel.SEND_MESSAGE)
                 +"UPDATE"
                 +UserPermissionsModel.GET_NEWS
@@ -35,9 +35,9 @@ internal class KotlinDslTest {
         assertEquals("Иванович", user.mname)
         assertEquals("2000-01-01", user.dob.toString())
         assertEquals("ivan@ivanov.example", user.email)
-        assertTrue("permission must contain VIEW") {
+        assertTrue("permission must contain All permissions") {
             user.permissions.containsAll(listOf(
-                UserPermissionsModel.VIEW,
+                UserPermissionsModel.READ,
                 UserPermissionsModel.SEND_MESSAGE,
                 UserPermissionsModel.UPDATE,
                 UserPermissionsModel.GET_NEWS
