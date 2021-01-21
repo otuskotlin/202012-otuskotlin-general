@@ -34,7 +34,7 @@ internal class KotlinDslTest {
 
         assertEquals("Иванович", user.mname)
         assertEquals("2000-01-01", user.dob.toString())
-        assertEquals("ivan@ivanov.example", user.email)
+        assertEquals("ivan@ivanov.example", user.email.email)
         assertTrue("permission must contain All permissions") {
             user.permissions.containsAll(listOf(
                 UserPermissionsModel.READ,
