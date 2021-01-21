@@ -54,7 +54,7 @@ fun l2norm(x: Double, y: Double, continuation: Continuation<Double>) =
 
 fun main() {
     with(contextOf(StepByStepDispatcher)) {
-        l2norm(2.0, 3.0, newContinuation { print("L2-norm: $it") })
+        l2norm(2.0, 3.0, newContinuation { println("L2-norm: $it") })
     }
     StepByStepDispatcher.dispatchNext()
     StepByStepDispatcher.dispatchNext()
