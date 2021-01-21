@@ -10,6 +10,6 @@ data class UserModel(
     var dob: LocalDate = LocalDate.MIN,
     var email: Email = Email.NONE,
     var phone: Phone = Phone.NONE,
-    var permissions: MutableSet<UserPermissions> = mutableSetOf()
+    var permissions: MutableSet<UserPermissionsModel> = mutableSetOf()
 )
 

@@ -1,6 +1,6 @@
 package ru.otus.otuskotlin.general.models
 
-enum class UserPermissions {
+enum class UserPermissionsModel {
     CREATE,
     READ,
     UPDATE,
