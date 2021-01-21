@@ -36,31 +36,22 @@ suspend fun CallbackApi.operation(arg: String): Int =
     }
 
 // Implement callback API using coroutines
-inline fun <T> Callback<T>.completeWithCoroutineResult(
-    coroutineScope: CoroutineScope,
-    callbackExecutor: Executor,
-    crossinline block: suspend () -> T
-): Cancellable {
-    val job = coroutineScope.launch {
-        val value = block()
-        callbackExecutor.execute { onSuccess(value) }
-    }
-    job.invokeOnCompletion { throwable ->
-        if (throwable != null) callbackExecutor.execute { onFailure(throwable) }
-    }
-    return object : Cancellable {
-        override fun cancel() {
-            job.cancel()
-        }
-    }
-}
-
 class CoroutineBackedCallbackApi(
     private val coroutineScope: CoroutineScope,
     private val callbackExecutor: Executor
 ) : CallbackApi {
-    override fun operation(arg: String, callback: Callback<Int>): Cancellable =
-        callback.completeWithCoroutineResult(coroutineScope, callbackExecutor) {
-            TODO("Not implemented yet")
+    override fun operation(arg: String, callback: Callback<Int>): Cancellable {
+        val job = coroutineScope.launch {
+            val value = TODO("Not implemented yet")
+            callbackExecutor.execute { callback.onSuccess(value) }
         }
+        job.invokeOnCompletion { throwable ->
+            if (throwable != null) callbackExecutor.execute { callback.onFailure(throwable) }
+        }
+        return object : Cancellable {
+            override fun cancel() {
+                job.cancel()
+            }
+        }
+    }
 }
