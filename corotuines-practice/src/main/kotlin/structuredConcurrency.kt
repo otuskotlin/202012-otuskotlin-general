@@ -18,12 +18,8 @@ data class ImageWithThumbnail(
 )
 
 // Loads single image and returns it
-suspend fun loadImage(imageUrl: URL, shouldFail: Boolean = false): Image {
+suspend fun loadImage(imageUrl: URL): Image {
     // Imitates image loading
-    if (shouldFail) {
-        delay(100)
-        throw RuntimeException("Imitate image loading error")
-    }
     val downloadTimeMillis = Random.nextLong(500) + 1000
     delay(downloadTimeMillis)
     println("Image $imageUrl loaded for ${downloadTimeMillis}ms")
