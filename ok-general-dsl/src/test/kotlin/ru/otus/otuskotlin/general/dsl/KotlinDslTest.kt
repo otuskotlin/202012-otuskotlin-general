@@ -55,4 +55,17 @@ internal class KotlinDslTest {
         }
     }
 
+    @Test
+    fun infixTest() {
+        val user = user {
+            name {
+                first = "Semen"
+            }
+        }
+
+        user permit UserPermissionsModel.READ
+
+        assertEquals(UserPermissionsModel.READ, user.permissions.first())
+    }
+
 }
