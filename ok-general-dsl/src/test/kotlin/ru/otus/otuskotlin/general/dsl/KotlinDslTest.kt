@@ -19,12 +19,12 @@ internal class KotlinDslTest {
             birth {
                 date = LocalDate.parse("2000-01-01")
             }
-            contracts {
+            contacts {
                 email = "ivan@ivanov.example"
                 phone = "+7 999 999 9999"
             }
 
-            permission {
+            permissions {
                 add("VIEW")
                 add(UserPermissionsModel.SEND_MESSAGE)
                 +"UPDATE"
