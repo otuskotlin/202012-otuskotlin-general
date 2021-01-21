@@ -45,8 +45,8 @@ class CoroutineBackedCallbackApi(
             val value = TODO("Not implemented yet")
             callbackExecutor.execute { callback.onSuccess(value) }
         }
-        job.invokeOnCompletion { throwable ->
-            if (throwable != null) callbackExecutor.execute { callback.onFailure(throwable) }
+        job.invokeOnCompletion {
+            if (it != null) callbackExecutor.execute { callback.onFailure(it) }
         }
         return object : Cancellable {
             override fun cancel() {
