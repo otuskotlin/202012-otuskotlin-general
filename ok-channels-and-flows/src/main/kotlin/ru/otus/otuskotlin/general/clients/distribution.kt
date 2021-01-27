@@ -8,13 +8,7 @@ import kotlin.math.sqrt
 import kotlin.random.Random
 
 fun normalDistributedSequence(mean: Double, std: Double): Sequence<Double> =
-    sequence {
-        while (true) {
-            val (z1, z2) = boxMullerRandom()
-            yield(z1)
-            yield(z2)
-        }
-    }.map { it * std + mean }
+    TODO("Produce sequence of normal distribute doubles")
 
 fun boxMullerRandom(): Pair<Double, Double> {
     // Box-Muller algorithm to produce normal distributed numbers with mean = 0, std = 1
@@ -29,6 +23,5 @@ fun boxMullerRandom(): Pair<Double, Double> {
 val TEMPERATURE_DISTRIBUTION = normalDistributedSequence(19.2, 1.0)
 val HUMIDITY_DISTRIBUTION = normalDistributedSequence(45.0, 5.0)
 val PRESSURE_DISTRIBUTION = normalDistributedSequence(987.5, 9.0)
-val NOISY_PRESSURE_DISTRIBUTION = PRESSURE_DISTRIBUTION
-    .zip(normalDistributedSequence(0.0, 100.0))
-    .map { it.first + it.second }
+val PRESSURE_NOISE = normalDistributedSequence(0.0, 100.0)
+val NOISY_PRESSURE_DISTRIBUTION = TODO("Combine PRESSURE_DISTRIBUTION with PRESSURE_NOISE by elements")
