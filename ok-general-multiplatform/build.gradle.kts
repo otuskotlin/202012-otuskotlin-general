@@ -41,6 +41,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(kotlin("stdlib"))
+                implementation(npm("is-sorted", ">1.0.0"))
             }
         }
         val jsTest by getting {
