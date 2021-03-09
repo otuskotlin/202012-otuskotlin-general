@@ -21,9 +21,13 @@ interface Users {
     suspend fun get(id: UserId): User
 }
 
+interface Cached {
+    suspend fun reload()
+}
+
 class DBUser(
-    private val id: UserId,
-    private val connection: Connection
+    internal val id: UserId,
+    internal val connection: Connection
 ) : User {
     override suspend fun id(): UserId =
         connection.query("SELECT id FROM users WHERE id = ?", id.value)
@@ -43,11 +47,37 @@ class DBUser(
     }
 }
 
+class CachingDBUser(
+    private val delegate: DBUser,
+    private var cachedId: UserId? = null,
+    private var cachedName: String? = null
+) : User, Cached {
+    override suspend fun id(): UserId = requireNotNull(cachedId) { "user should be reloaded" }
+
+    override suspend fun name(): String = requireNotNull(cachedName) { "user should be reloaded" }
+
+    override suspend fun rename(newName: String) {
+        delegate.rename(newName)
+        reload()
+    }
+
+    override suspend fun reload() {
+        delegate.connection.query("SELECT id, name FROM users WHERE id = ?", delegate.id.value)
+            .firstOrNull()
+            ?.also {
+                cachedId = UserId(it["id"] as String)
+                cachedName = it["name"] as String
+            }
+            ?: throw UserNotFoundException(delegate.id)
+    }
+}
+
 class DBUsers(
     private val connection: Connection
 ) : Users {
     override suspend fun get(id: UserId): User =
-        DBUser(id, connection)
+        CachingDBUser(DBUser(id, connection))
+            .apply { reload() }
 }
 
 object GuestUser : User {
